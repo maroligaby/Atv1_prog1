@@ -6,17 +6,16 @@ Pessoa[] pessoas = new Pessoa[]
         Name ="Mario",
         Nascimento = new(year:1996, month:5,day:31),
         CodigoFuncionario = 166,
+        contratacao = DateTime.Today,
         NumeroFilial = 3,
-        Homeoffice = false,
-        TemLideranca = true
+        hierarquia = "Gerente"
     },
     new Supervisor{
         Name = "Leila",
         Nascimento = new(year:2000, month:9, day:19),
         CodigoFuncionario = 243,
         Setor = "contabilidade",
-        AcessaCameras = true,
-        Atento = true
+        hierarquia = "Supervisor"
     },
     new Operario{
         Name= "Nicolas",
@@ -24,7 +23,7 @@ Pessoa[] pessoas = new Pessoa[]
         CodigoFuncionario = 341,
         Funcao = "motorista",
         contratacao = DateTime.Today,
-        dirige = true
+        hierarquia = "Operário"
     },
     new Operario{
         Name = "Giovana",
@@ -32,16 +31,15 @@ Pessoa[] pessoas = new Pessoa[]
         CodigoFuncionario = 367,
         Funcao = "secretária",
         contratacao = DateTime.Today,
-        dirige = false
+        hierarquia = "Operário"
     },
     new Supervisor{
         Name = "Marina",
         Nascimento= new(year:1982,month:7,day:16),
         CodigoFuncionario = 444,
         Setor = "Financeiro",
-        AcessaCameras = false,
-        Atento = true,
-        contratacao = DateTime.Today
+        contratacao = DateTime.Today,
+        hierarquia = "Supervisor"
     }
 
 };
@@ -53,9 +51,26 @@ for (int i = 0; i<pessoas.Length; i++)
     {
         message= $"\nNome: {pessoas[i].Name}";
         message +=$"\nNascimento: {pessoas[i].Nascimento.ToShortDateString()}";
+        message+=$"\n{pessoas[i].hierarquia}";
         message +=$"\nCódigo do funcionário: {pessoas[i].CodigoFuncionario}";
         message +=$"\nContratado desde: {pessoas[i].contratacao.ToShortDateString()}";
+        if (pessoas[i] is Gerente)
+            {
+                Gerente gerente = (Gerente)pessoas[i];
+                message +=$"\nGerente filial: {gerente.NumeroFilial}";
+            }
+
+        if (pessoas[i] is Supervisor)
+            {
+                Supervisor supervisor = (Supervisor)pessoas[i];
+                message+=$"\nSetor: {supervisor.Setor}";
+            }
+
+        if (pessoas[i] is Operario)
+            {
+                Operario operario = (Operario)pessoas[i];
+                message+=$"\nfunção: {operario.Funcao}";
+            }
+        }
+        Console.WriteLine(message);
     }
-    
-    Console.WriteLine(message);
-}
